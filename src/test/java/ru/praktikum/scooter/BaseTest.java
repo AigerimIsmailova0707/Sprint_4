@@ -1,5 +1,6 @@
 package ru.praktikum.scooter;
 
+import io.github.bonigarcia.wdm.WebDriverManager;
 import org.junit.After;
 import org.junit.Before;
 import org.openqa.selenium.WebDriver;
@@ -19,8 +20,10 @@ public abstract class BaseTest {
         // По умолчанию Chrome. Для Firefox: mvn test -Dbrowser=firefox
         String browser = System.getProperty("browser", "chrome");
         if ("firefox".equalsIgnoreCase(browser)) {
+            WebDriverManager.firefoxdriver().setup();
             driver = new FirefoxDriver();
         } else {
+            WebDriverManager.chromedriver().setup();
             ChromeOptions options = new ChromeOptions();
             options.addArguments("--start-maximized");
             driver = new ChromeDriver(options);
